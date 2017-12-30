@@ -1,0 +1,20 @@
+Add Icing Team to PlayByPlay:
+
+IcingTeam	STRING	NULLABLE	Describe this field...
+A_Lineup	STRING	NULLABLE	Describe this field...
+
+#standardSQL
+UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
+SET IcingTeam = hometeam WHERE homezone = "Def"
+
+#standardSQL
+UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
+SET IcingTeam = awayteam WHERE homezone = "Off"
+
+#standardSQL
+UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
+SET A_Lineup = CONCAT(a1,'/',a2,'/',a3,'/',a4,'/',a5) WHERE homezone = "Off"
+
+#standardSQL
+UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
+SET A_Lineup = CONCAT(h1,'/',h2,'/',h3,'/',h4,'/',h5) WHERE homezone = "Def"
