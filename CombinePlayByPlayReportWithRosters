@@ -1,3 +1,5 @@
+#standardSQL
+
 SELECT string_field_9 as Nrname 
     , string_field_1 as PlayerID
     , string_field_2 as Playername
