@@ -1,0 +1,39 @@
+# Very similar to the NHLscrapR code posted as a different repository, here is the R-code I used to pull daily PBP files from the NHL API per season
+
+# Load library and set work directory (note the folder needs to exist already)
+library(nhlscrapr)
+setwd("/Users/rjweise/Downloads/2017/NHLscrapr/20142015")
+
+#Set the season you want to load files for
+SEASON <- "20142015"
+
+#looping through the games in a season
+gamenumber <- 0
+for(i in 1:1500) { #non-existent or empty games will still create a csv file, but these will be easy to recognize based on file size
+
+#counting the number of characters in the game number (i) to determine what to add in front to match the gamenumber style of NHL
+g <- nchar(i)
+  if(g==1) { 
+    GID <- paste0("2000", i)
+  } else if (g==2) {
+    GID <- paste0("200", i)
+  } else if (g==3) {
+    GID <- paste0("20", i)
+  } else GID <- paste0("2", i)
+  
+  #Now load the daily file into GameNAme using the NHLscrapr package
+  GameName <- process.single.game(season=SEASON, gcode=GID, rdata.folder="20142015", override.download = TRUE)
+  retrieve.game(season=SEASON, gcode = GID)
+  
+  #load the game into a dataframe
+  DFName <- data.frame(GameName$playbyplay)
+  
+  #define the file name
+  name = paste("PbPgame20140", GID, sep = "")
+  CSVname = paste(name, ".CSV", sep = "")
+  
+  #write the data to csv
+  write.csv(DFName, file = CSVname)
+}
+
+#Use cat *.csv > merged.csv in Terminal on Mac 
