@@ -1,4 +1,5 @@
-# Pulls All Coaches Per NHL game from NHL API in R
+# Pulls All Coaches Per NHL game from NHL API in R and saves individual CSVs in workdir.
+
 ##loads the head coaches per game from NHL API and saves CSVs in workdir.
 
 #read the required libraries
@@ -50,18 +51,18 @@ for(s in 2010:2018) { #2007:2017
                             ,unlist(mylist99[[6]][[3]][[1]][[2]][[10]][[2]][[1]]) #home coach title code
                             ,unlist(mylist99[[6]][[3]][[1]][[1]][[10]][[2]][[1]]) #away coach title code                           
                             ,unlist(mylist99[[6]][[3]][[1]][[2]][[1]][[2]]) #home team
-                            ,unlist(mylist99[[6]][[3]][[1]][[1]][[1]][[2]]) #away teaM
+                            ,unlist(mylist99[[6]][[3]][[1]][[1]][[1]][[2]]) #away team
                             ,unlist(mylist99[[6]][[3]][[1]][[2]][[1]][[1]]) #home team id
-                            ,unlist(mylist99[[6]][[3]][[1]][[1]][[1]][[1]]) #away teaM id                 
+                            ,unlist(mylist99[[6]][[3]][[1]][[1]][[1]][[1]]) #away team id                 
                             ,unlist(mylist99[[5]][[2]][[1]][[1]]) #StartDateTime                        
-                            ,unlist(mylist99[[5]][[2]][[2]][[1]]) #EndDateTime   
+
                             
-                 ), error = function(e) print(gamenumber)) #gamenumber <- paste("G",gamenumber, sep = "")) #print(paste("Error with ", gamenumber, "!", sep = "")))
+                 ), error = function(e) print(paste("Issue with ", gamenumber))) 
       
       #add column for gamenumber and add gamenumber value
       gameslistcsv$SourceGame<-gamenumber
       #gameslistcsv$SourceGame<- rep(gamenumber,nrow(gameslistcsv))
-      names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode", "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID", "StartDateTime", "EndDateTime", "SourceGameNR") 
+      names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode", "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID", "StartDateTime", "SourceGameNR") 
       
       #write to csv
       write.csv(gameslistcsv, file = paste("coaches_",gamenumber,".csv",sep = ""), row.names = FALSE) # write the file to csv (without automatically created row names) in the workdirectory
