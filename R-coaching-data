@@ -6,14 +6,14 @@
 library(jsonlite)
 
 #set output folder
-setwd("H:/My Documents/Pers/NHL/DATA/R/coaches")
+setwd("H:/My Documents/Pers/NHL/DATA/R/test")
 
 #looping through all seasons starting in 2007
 gamenumber <- 0
-for(s in 2010:2018) { #2007:2017
+for(s in 2010:2018) { 
 
 #looping through all games with the selected season  
-    for(i in 1:1500) { #1:1300
+    for(i in 1:1300) { #1:1300
 
 #look at the lenght of the game number i and add preceding 0's where needed      
     g <- nchar(i)
@@ -42,7 +42,7 @@ for(s in 2010:2018) { #2007:2017
     TEST1 <- NROW(mylist99) 
     # if the test is passed (1 or more records)
     if (TEST1>1) { 
-      #pull only the required fields from tje json file
+      #pull only the required fields from the json file
       tryCatch(gameslistcsv <-
                  data.frame(unlist(mylist99[[6]][[3]][[1]][[2]][[10]][[1]][[1]]) #home coach name
                             ,unlist(mylist99[[6]][[3]][[1]][[1]][[10]][[1]][[1]]) #away coach name
@@ -59,16 +59,19 @@ for(s in 2010:2018) { #2007:2017
                             
                  ), error = function(e) print(paste("Issue with ", gamenumber))) 
       
-      #add column for gamenumber and add gamenumber value
-      gameslistcsv$SourceGame<-gamenumber
-      #gameslistcsv$SourceGame<- rep(gamenumber,nrow(gameslistcsv))
-      names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode", "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID", "StartDateTime", "SourceGameNR") 
+      #add column SourceGame for gamenumber and add gamenumber value (but only if the file existed above, if not than the following code is ignored)
+      if (exists("gameslistcsv") == TRUE) {
+        gameslistcsv$SourceGame<-gamenumber
+      
+        #rename all column headers to more meaningful names
+        names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode", "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID", "StartDateTime", "SourceGameNR") 
       
       #write to csv
-      write.csv(gameslistcsv, file = paste("coaches_",gamenumber,".csv",sep = ""), row.names = FALSE) # write the file to csv (without automatically created row names) in the workdirectory
-      print(paste(gamenumber, "printed"))
-      # remove gameslistcsv dataframe from previous run in loop, if it exists
-      if (exists("gameslistcsv") == TRUE) {rm(gameslistcsv)}
+        write.csv(gameslistcsv, file = paste("coaches_",gamenumber,".csv",sep = ""), row.names = FALSE) # write the file to csv (without automatically created row names) in the workdirectory
+        print(paste(gamenumber, "printed"))
+        
+      # remove gameslistcsv dataframe from previous run in loop
+        rm(gameslistcsv)}
     }
   }
 }
