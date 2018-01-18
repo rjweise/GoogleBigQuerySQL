@@ -9,11 +9,10 @@ I'm no expert by any means on hockey, but generally speaking an icing is a negat
 A first step in this research showed me what players iced the puck most, and I then aggregated that data per team. It made me wonder what the influence of the coach was on these icing tendiencies; do some prefer the temporary relief that icing can provide over the potentially negative consequences described above? Does it just come with a certain playing style coaches prefer?
 
 ## Data
-To do this anlysis I needed data for icing events, which team committed the icing, what players were on the ice, and who was coaching that team. For the icing events I use the R package NHLscrapr from A.C. Thomas and Samuel L. Ventura (bla bla - automatic!
-[GitHub](http://github.com) )
+To do this anlysis I needed data for icing events, which team committed the icing, what players were on the ice, and who was coaching that team. For the icing events I use the R package NHLscrapr from A.C. Thomas and Samuel L. Ventura ([link](https://cran.r-project.org/web/packages/nhlscrapr/index.html))
 
 
-https://cran.r-project.org/web/packages/nhlscrapr/index.html) to pull play-by-play data from the NHL's HTML reports per game (example: http://www.nhl.com/scores/htmlreports/20172018/PL020043.HTM). This gives me the events per game(-number), the players on ice for each team, the teams, and to a certain degree the team that iced the puck (more to follow below).
+) to pull play-by-play data from the NHL's HTML reports per game (example: http://www.nhl.com/scores/htmlreports/20172018/PL020043.HTM). This gives me the events per game(-number), the players on ice for each team, the teams, and to a certain degree the team that iced the puck (more to follow below).
 
 Still missing were the coaches of the teams for which I used different R-code that reads the NHL API Life Feed JSON files (example: http://statsapi.web.nhl.com/api/v1/game/2017020019/feed/live) and pulls both coaches and the game number, which can be linked to the data described above.
 
