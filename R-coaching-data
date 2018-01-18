@@ -1,20 +1,18 @@
 # Pulls All Coaches Per NHL game from NHL API in R
-# STILL NEEDS WORK, CURRENTLY THE SCRIPT STOPS WHEN A GAMEFILE DOES NOT EXIST
-
 ##loads the head coaches per game from NHL API and saves CSVs in workdir.
 
 #read the required libraries
 library(jsonlite)
 
 #set output folder
-setwd("H:/My Documents/Pers/NHL/DATA/R")
+setwd("H:/My Documents/Pers/NHL/DATA/R/coaches")
 
 #looping through all seasons starting in 2007
 gamenumber <- 0
-for(s in 2007:2017) { #2007:2017
+for(s in 2012:2018) { #2007:2017
 
 #looping through all games with the selected season  
-    for(i in 1:1300) { #1:1300
+    for(i in 1:1500) { #1:1300
 
 #look at the lenght of the game number i and add preceding 0's where needed      
     g <- nchar(i)
@@ -32,16 +30,17 @@ for(s in 2007:2017) { #2007:2017
     gamelinknumber <- paste(s,"02", nr, sep = "")
     gamelink <- paste("http://statsapi.web.nhl.com/api/v1/game/",gamelinknumber,"/feed/live", sep="")
 
+    
 #load the data from the NHL API using the jsonlite package    
-    assign(gamenumber, fromJSON(gamelink))
-
+    tryCatch(assign(gamenumber, fromJSON(gamelink)), error = function(e) print(paste("Game number", gamenumber, "does not exist.", sep = ""))) #function(e) gamenumber <- paste("E",gamenumber, sep = ""))
+    mylist99 <- 0 #make mylist99 empty
 #from the loaded data, add only the relevant columns to a list
-    mylist99 <- get(gamenumber)$liveData$boxscore$teams #as.name(gamelist) #game2017020001$liveData$plays$allPlays 
+    tryCatch(mylist99 <- get(gamenumber)$liveData$boxscore$teams, error = function(e) print(paste("Game number", gamenumber, "still does not exist.", sep = "")))
 
     # make sure the extracted file contains records    
     TEST1 <- NROW(mylist99) 
     # if the test is passed (1 or more records)
-    if (TEST1>0) { 
+    if (TEST1>1) { 
       #pull only the required fields from tje json file
       tryCatch(gameslistcsv <-
                  data.frame(unlist(mylist99[[2]][[10]][[1]][[1]]) #home coach name
@@ -56,24 +55,18 @@ for(s in 2007:2017) { #2007:2017
                             ,unlist(mylist99[[1]][[1]][[1]]) #away teaM id                 
                 
 
-                 ), error = function(e) gamenumber <- paste("E",gamenumber, sep = "")) #print(paste("Error with ", gamenumber, "!", sep = "")))
-      
-      # remove automatically created rownames
-      rownames(gameslistcsv) <- NULL 
-      
-      
-      #THIS CAN BE REOVED? tryCatch(colnames(gameslistcsv)[10] <- "Sourcegame", error = function(e) print("T"))
-      
-      # rename the column names
-      names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode"
-                               , "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID") 
+                 ), error = function(e) print(gamenumber)) #gamenumber <- paste("G",gamenumber, sep = "")) #print(paste("Error with ", gamenumber, "!", sep = "")))
       
       #add column for gamenumber and add gamenumber value
-      gameslistcsv$GameNumber<-gamenumber
+      gameslistcsv$SourceGame<-gamenumber
+      #gameslistcsv$SourceGame<- rep(gamenumber,nrow(gameslistcsv))
+      names(gameslistcsv) <- c("HcoachName", "AcoachName", "HcoachTitle", "AcoachTitle", "HcoachTitleCode", "AcoachTitleCode", "Hteam", "Ateam", "HteamID", "AteamID", "SourceGameNR") 
       
       #write to csv
       write.csv(gameslistcsv, file = paste("coaches_",gamenumber,".csv",sep = ""), row.names = FALSE) # write the file to csv (without automatically created row names) in the workdirectory
 
+      # remove gameslistcsv dataframe from previous run in loop, if it exists
+      if (exists("gameslistcsv") == TRUE) {rm(gameslistcsv)}
     }
   }
 }
