@@ -20,6 +20,15 @@ I should note that to my knowledge it is impossible to determine for every icing
 
 Looking at the icing events in the HTML reports from NHL ([example](http://www.nhl.com/scores/htmlreports/20162017/PL020001.HTM)) the extracted file gives me individual on-ice events with information about period, time, event type, a description, and who were on the ice: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-28-13.png "NHL Play by Play report example")
 
+After extracting this file through R and saving it as a csv to open in Excel, we're looking at the following for the same events: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-35-50.png "NHL Play by Play extracted example")
+
+The actions that need to happen now are:
+* filter out the icing events
+* identify and assign the icing team and non-icing team
+* identify and assign the icing players on the ice ("committing" the icing) and the ones... uhm... "forcing" the icing?
+
+
+
 
 
 ## Process details
