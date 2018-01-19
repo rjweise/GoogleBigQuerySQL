@@ -40,13 +40,12 @@ I checked the lineups for the following faceoffs including ones in the home team
 * if the homezone is "Def" for an icing event, the home team iced the puck
 
 Leaves us with those icing events where the homezone column has a different value then "Off" or "Def"; looking at the data for the 2016-2017 season I found 10,264 icing events (etpe = "ICING"), with the Homezone values divided as follows:
-|homezone|nr. of records|
-|---|---|
-|Null|20|
-|Def|4,917|
-|Neu|76|
-|Off|5,236|
+![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_12-52-22.png)
 
+Not a significant number of records, but still. Looking at some individual occurrences the only helpful data in the report and dataset is the next line, which specifies which team won the ensuing faceoff and **in what zone that faceoff took place**. Unfortunately it seems common that it's actually not the next record. For example:
+![Alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_13-01-36.png)
+
+So, if we have an icing event, and the homezone is not "Off" nor "Def" we need to look at the first record after the icing event that is a faceoff event. Isn't this fun!?! But now look at the image again: we have a stopage for icing at 12:12 in the 1st period of this game between Montreal and Buffalo, which - at the same time - is a penalty for Foligno. NHL needs to make more money, so let's have a TV timeout. Ok, we're back, with a Faceoff **at centre ice** ("FAC	MTL won Neu. Zone"). Qu'est-ce que Fuck??? Stop messing with my head, Gary B.! Sure, sure, it's an exception within the 1% of data that is an exception to normal Icing data. No need to start threatening me with moving me to Seatle! :scream: I digress...
 
 
 
