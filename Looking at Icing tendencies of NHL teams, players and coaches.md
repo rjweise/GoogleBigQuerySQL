@@ -39,7 +39,13 @@ I checked the lineups for the following faceoffs including ones in the home team
 * if the homezone is "Off" for an icing event, the away team iced the puck
 * if the homezone is "Def" for an icing event, the home team iced the puck
 
-Leaves us with those icing events where the homezone column has a different value then "Off" or "Def".
+Leaves us with those icing events where the homezone column has a different value then "Off" or "Def"; looking at the data for the 2016-2017 season I found 10,264 icing events (etpe = "ICING"), with the Homezone values divided as follows:
+|homezone|nr. of records|
+|---|---|
+|Null|20|
+|Def|4,917|
+|Neu|76|
+|Off|5,236|
 
 
 
