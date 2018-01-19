@@ -23,7 +23,7 @@ g <- nchar(i)
   
   #Now load the daily file into GameNAme using the NHLscrapr package
   GameName <- process.single.game(season=SEASON, gcode=GID, rdata.folder="20142015", override.download = TRUE)
-  retrieve.game(season=SEASON, gcode = GID)
+  #retrieve.game(season=SEASON, gcode = GID)
   
   #load the game into a dataframe
   DFName <- data.frame(GameName$playbyplay)
