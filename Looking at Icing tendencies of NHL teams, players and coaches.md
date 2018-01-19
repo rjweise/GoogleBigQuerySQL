@@ -21,13 +21,21 @@ I should note that to my knowledge it is impossible to determine for every icing
 Looking at the icing events in the HTML reports from NHL ([example](http://www.nhl.com/scores/htmlreports/20162017/PL020001.HTM)) the extracted file gives me individual on-ice events with information about period, time, event type, a description, and who were on the ice: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-28-13.png "NHL Play by Play report example")
 
 After extracting this file through R and saving it as a csv to open in Excel, we're looking at the following for the same events: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-35-50.png "NHL Play by Play extracted example")
+ZOOM IN...
+![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-41-15.png)
 
 The actions that need to happen now are:
 * filter out the icing events
 * identify and assign the icing team and non-icing team
 * identify and assign the icing players on the ice ("committing" the icing) and the ones... uhm... "forcing" the icing?
 
+The icing events can be filtered easily through the etype column: etype = "ICING". It also shows which players were on the ice, and in 99% of the cases the homezone column will specify "Off" or "Def". Assuming this means the zone for the hometeam where the puck was iced from (as in "passed from before it crossed the red goal line"), we can determine what team (but not which player) iced the puck.
 
+To confirm the assumtion let's look at the image of the report and the underlying data. After 5 seconds in the game an icing happens (report) in homezone "Off" (data). Since this game is in Ottowa (report) the icing is "passed from" Ottowa's offensive zone (data). The following faceoff is won by Toronto in their defensive zone (report), recorded as "Off" in the homezone column (data). This makes sense, as Toronto iced the puck from their own zone, Ottawa's offensive zone, leading to a faceoff in Toronto's defenisive, Ottoawa's offensive zone.
+Still with me?
+
+
+I checked the lineups for the following faceoffs
 
 
 
