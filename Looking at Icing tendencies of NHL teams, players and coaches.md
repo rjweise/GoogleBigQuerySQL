@@ -15,6 +15,11 @@ Still missing were the coaches of the teams for which I used different R-code th
 
 This data is combined and manipulated in Google Big Query afterwards to generate the datasets used in Tableau Public to analyse the data and create the eventual visualization. The "icing team" was derived from the value in the "homezone" field. And depending on if the icing team was the home or away team, the "icing lineup" was created by concatenating the home or away lineup.
 
+### NHL Play by Play reports
 I should note that to my knowledge it is impossible to determine for every icing which team iced the puck; the icing team can not be determined when the "homezone" field contained other values then "Def" or "Off" (like "", "Neu" and "Unk"). Checking on a subset of all data I found about 1% of the data contained these values, and were excluded from the research as they could not be assigned to a team or player.
+
+Looking at the icing events in the HTML reports from NHL ([example](http://www.nhl.com/scores/htmlreports/20162017/PL020001.HTM)) the extracted file gives me individual on-ice events with information about period, time, event type, a description, and who were on the ice:
+
+
 
 ## Process details
