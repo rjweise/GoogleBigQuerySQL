@@ -32,10 +32,15 @@ The actions that need to happen now are:
 The icing events can be filtered easily through the etype column: etype = "ICING". It also shows which players were on the ice, and in 99% of the cases the homezone column will specify "Off" or "Def". Assuming this means the zone for the hometeam where the puck was iced from (as in "passed from before it crossed the red goal line"), we can determine what team (but not which player) iced the puck.
 
 To confirm the assumtion let's look at the image of the report and the underlying data. After 5 seconds in the game an icing happens (report) in homezone "Off" (data). Since this game is in Ottowa (report) the icing is "passed from" Ottowa's offensive zone (data). The following faceoff is won by Toronto in their defensive zone (report), recorded as "Off" in the homezone column (data). This makes sense, as Toronto iced the puck from their own zone, Ottawa's offensive zone, leading to a faceoff in Toronto's defenisive, Ottoawa's offensive zone.
+
 Still with me?
 
+I checked the lineups for the following faceoffs including ones in the home team's defensive zone, and the logic is confirmed:
+* if the homezone is "Off" for an icing event, the away team iced the puck
+* if the homezone is "Def" for an icing event, the home team iced the puck
 
-I checked the lineups for the following faceoffs
+Leaves us with those icing events where the homezone column has a different value then "Off" or "Def".
+
 
 
 
