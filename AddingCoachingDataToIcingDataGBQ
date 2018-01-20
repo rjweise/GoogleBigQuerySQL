@@ -1,0 +1,13 @@
+Assuming I have two files in Google Big Query (GBQ):
+* NHLPbP20102018g707htmlreportsICING (all play by play data from 2010 until current, but only etype = ICING)
+* NHLCoachesg2010020001_g2017020704 (coaches for home and away teams since 2010 to current)
+
+Let's create the SourceGameNR field in the ICING data and fill it with the right data to link to the COACH data:
+
+#standardSQL
+
+UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
+SET SourceGameNR = CONCAT('game',SUBSTR(CAST(season AS STRING),1,4),CAST(gcode AS STRING)) WHERE etype = "ICING"
+
+Now use the same logic to define the iced and icing team to the iced and icing coaches
+
