@@ -1,0 +1,42 @@
+#standardSQL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters
+FROM NHLplaybyplay.NHLPbP20102011htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20112012htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20122013htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20132014htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20142015htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20152016htmlreportsF
+WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20162017htmlreportsF
+WHERE etype = "ICING"
