@@ -5,17 +5,34 @@ Assuming I have two files in Google Big Query (GBQ):
 Let's create the SourceGameNR field in the ICING data and fill it with the right data to link to the COACH data:
 
 #standardSQL
-
 UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
-SET SourceGameNR = CONCAT('game',SUBSTR(CAST(season AS STRING),1,4),CAST(gcode AS STRING)) WHERE etype = "ICING"
+SET SourceGameNR = CONCAT('game',SUBSTR(CAST(season AS STRING),1,4),"0", CAST(gcode AS STRING)) WHERE etype = "ICING"
 
-Now use the same logic to define the iced and icing team to the iced and icing coaches (run the SET statements one by one)
+Let's join the two tables (ICING and COACH) based on the SourceGameNR
 
 #standardSQL
-UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
-SET IcingCoach =  WHERE homezone = "Def"
-SET IcedCoach =  WHERE homezone = "Def"
-SET IcingCoach = awayteam WHERE homezone = "Off"
-SET IcedCoach = hometeam WHERE homezone = "Off"
+SELECT ICING.* EXCEPT(SourceGameNR, HomeCoach, AwayCoach),
+COACH.HcoachName,
+COACH.AcoachName,
+COACH.SourceGameNR,
+COACH.Hteam,
+COACH.Ateam,
+COACH.HteamID,
+COACH.AteamID
+FROM NHLplaybyplay.NHLPbP20102018g707htmlreportsICING AS ICING
+JOIN NHLplaybyplay.NHLCoachesg2010020001_g2017020704 AS COACH
+ON ICING.SourceGameNR = COACH.SourceGameNR
 
+We'll save this join as a new table (NHLPbP20102018g707htmlrep_JOIN_coaches) in which we can calculate some fields, using the same logic to define the iced and icing team to the iced and icing coaches (run the SET statements one by one)
 
+#standardSQL
+UPDATE NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches
+SET IcingCoach = HcoachName WHERE homezone = "Def"
+
+SET IcedCoach = AcoachName WHERE homezone = "Def"
+
+SET IcingCoach = AcoachName WHERE homezone = "Off"
+
+SET IcedCoach = HcoachName WHERE homezone = "Off"
+
+We now have the table with all data for teams and coaches.
