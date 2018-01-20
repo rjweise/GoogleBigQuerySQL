@@ -9,5 +9,13 @@ Let's create the SourceGameNR field in the ICING data and fill it with the right
 UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
 SET SourceGameNR = CONCAT('game',SUBSTR(CAST(season AS STRING),1,4),CAST(gcode AS STRING)) WHERE etype = "ICING"
 
-Now use the same logic to define the iced and icing team to the iced and icing coaches
+Now use the same logic to define the iced and icing team to the iced and icing coaches (run the SET statements one by one)
+
+#standardSQL
+UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
+SET IcingCoach =  WHERE homezone = "Def"
+SET IcedCoach =  WHERE homezone = "Def"
+SET IcingCoach = awayteam WHERE homezone = "Off"
+SET IcedCoach = hometeam WHERE homezone = "Off"
+
 
