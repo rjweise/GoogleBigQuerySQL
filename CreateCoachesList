@@ -1,0 +1,16 @@
+//-------- Use the following to create a list of unique coaches/season/team combinations
+//Note there is a Phoenix Coyotes and Arizona Coyotes
+#standardSQL
+
+SELECT Coach, season, Team FROM
+  (SELECT HcoachName Coach, season, Hteam Team  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches 
+
+  UNION ALL
+
+  SELECT AcoachName Coach, season, Ateam Team  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches )
+GROUP BY Coach, season, Team
+ORDER BY Coach, season
+
+//-------- Use the following to create a list of unique coaches
+//SELECT Coach from NHLplaybyplay.CoachesSeasonTeam
+//GROUP BY Coach
