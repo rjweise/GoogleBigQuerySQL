@@ -19,15 +19,14 @@ SELECT string_field_9 as Nrname
     , hometeam
     , away_score
     , home_score
-    , event_length
     , IcingTeam
-    , A_Lineup
-    , COUNT(A_Lineup) AS Nrof
+    , IcingLineup
+    , COUNT(IcingLineup) AS Nrof
   FROM GoogleSheetsData.NHLrosters_dec26_2017
-  JOIN (SELECT * FROM GoogleSheetsData.NHLPBPreports_2017_uptog557 WHERE etype = "ICING")
-  ON A_Lineup LIKE CONCAT('%',UPPER(string_field_9),'%')
+  JOIN (SELECT * FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches)
+  ON IcingLineup LIKE CONCAT('%',UPPER(string_field_9),'%')
   GROUP BY string_field_9
-    , A_Lineup
+    , IcingLineup
     , string_field_1
     , string_field_2
     , string_field_3
@@ -46,6 +45,5 @@ SELECT string_field_9 as Nrname
     , hometeam
     , away_score
     , home_score
-    , event_length
     , IcingTeam
   ORDER by Nrof DESC
