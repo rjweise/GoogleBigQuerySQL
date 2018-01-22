@@ -1,0 +1,32 @@
+SELECT 
+  ICING.Coach,
+  ICING.NrOfIcing,
+  ICED.NrOfIced
+
+FROM
+(
+  //Icing coaches
+  Select COACHES.Coach,
+  COUNT(BASE.IcingCoach) NrOfIcing
+  FROM [NHLplaybyplay.Coaches] AS COACHES
+  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  ON COACHES.Coach = BASE.IcingCoach
+  GROUP BY COACHES.Coach
+  ORDER BY NrOfIcing DESC
+) AS ICING
+
+JOIN
+
+(
+  //Iced coaches
+  Select COACHES.Coach,
+  COUNT(BASE.IcedCoach) NrOfIced
+  FROM [NHLplaybyplay.Coaches] AS COACHES
+  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  ON COACHES.Coach = BASE.IcedCoach
+  GROUP BY COACHES.Coach
+  ORDER BY NrOfIced DESC
+) AS ICED
+
+ON ICING.Coach = ICED.Coach
+ORDER BY ICING.Coach
