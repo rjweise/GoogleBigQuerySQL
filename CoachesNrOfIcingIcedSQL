@@ -34,13 +34,14 @@ ORDER BY ICING.Coach
 
 
 // Icings and Iced upon PER COACH PER SEASON PER TEAM
+#standardSQL
 SELECT 
-  ICING.Coach,
-  ICING.season,
-  ICING.Team,
-  ICING.NrOfIcing,
-  ICED.NrOfIced,
-  ICING.NrOfIcing / (ICING.NrOfIcing/ICED.NrOfIced)
+  ICING.Coach COACH,
+  ICING.season SEASON,
+  ICING.Team TEAM,
+  ICING.NrOfIcing ICINGPUCK,
+  ICED.NrOfIced PUCKICED,
+  ROUND(ICING.NrOfIcing/(ICING.NrOfIcing+ICED.NrOfIced),3) AS ICINGRATIO
 
 FROM
 (
