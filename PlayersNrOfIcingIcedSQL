@@ -1,3 +1,43 @@
+/////////////////////////////Nr of icings and iced upon per NR-PLAYER combination
+#standardSQL
+SELECT 
+  ICING.Player PLAYER,
+  ICING.NrOfIcing ICINGPUCK,
+  ICED.NrOfIced PUCKICED,
+  ROUND(ICING.NrOfIcing/(ICING.NrOfIcing+ICED.NrOfIced),3) AS ICINGRATIO
+
+FROM
+
+(
+ 
+  Select PLAYERS.Player,
+  COUNT(BASE.IcingLineup) NrOfIcing
+  FROM NHLplaybyplay.PlayersSeasonTeam AS PLAYERS
+  JOIN NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches AS BASE
+  ON BASE.IcingLineup LIKE CONCAT('%',PLAYERS.Player,'%')
+  GROUP BY PLAYERS.Player
+  ORDER BY PLAYERS.Player, NrOfIcing DESC
+) AS ICING
+
+JOIN
+
+(
+ 
+  Select PLAYERS.Player,
+  COUNT(BASE.IcedLineup) NrOfIced
+  FROM NHLplaybyplay.PlayersSeasonTeam AS PLAYERS
+  JOIN NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches AS BASE
+  ON BASE.IcedLineup LIKE CONCAT('%',PLAYERS.Player,'%')
+  GROUP BY PLAYERS.Player
+  ORDER BY NrOfIced DESC
+) AS ICED
+
+ON ICING.Player = ICED.Player
+ORDER BY ICING.Player
+
+
+/////////////////////////////////////////////////Nr of icings and iced upon per NR-PLAYER combination, season and Team
+
 #standardSQL
 SELECT 
   ICING.Player PLAYER,
