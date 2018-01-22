@@ -39,7 +39,7 @@ SELECT
   ICING.season,
   ICING.Team,
   ICING.NrOfIcing,
-  ICED.NrOfIced
+  ICED.NrOfIced,
   ICING.NrOfIcing / (ICING.NrOfIcing/ICED.NrOfIced)
 
 FROM
@@ -51,9 +51,9 @@ FROM
   COUNT(BASE.IcingCoach) NrOfIcing
   FROM [NHLplaybyplay.CoachesSeasonTeam] AS COACHES
   JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
-  ON COACHES.Coach = BASE.IcingCoach
+  ON COACHES.Coach = BASE.IcingCoach AND COACHES.season = BASE.season AND COACHES.TeamAbr = BASE.IcingTeam
   GROUP BY COACHES.Coach, COACHES.season, COACHES.Team
-  ORDER BY NrOfIcing DESC
+  ORDER BY COACHES.Coach, NrOfIcing DESC
 ) AS ICING
 
 JOIN
@@ -66,11 +66,10 @@ JOIN
   COUNT(BASE.IcedCoach) NrOfIced
   FROM [NHLplaybyplay.CoachesSeasonTeam] AS COACHES
   JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
-  ON COACHES.Coach = BASE.IcedCoach
+  ON COACHES.Coach = BASE.IcedCoach AND COACHES.season = BASE.season AND COACHES.TeamAbr = BASE.IcedTeam
   GROUP BY COACHES.Coach, COACHES.season, COACHES.Team
   ORDER BY NrOfIced DESC
 ) AS ICED
 
 ON ICING.Coach = ICED.Coach AND ICING.season = ICED.season AND ICING.Team = ICED.Team
 ORDER BY ICING.Coach
-
