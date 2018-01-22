@@ -1,0 +1,41 @@
+#standardSQL
+SELECT 
+  ICING.Player PLAYER,
+  ICING.season SEASON,
+  ICING.Team TEAM,
+  ICING.NrOfIcing ICINGPUCK,
+  ICED.NrOfIced PUCKICED,
+  ROUND(ICING.NrOfIcing/(ICING.NrOfIcing+ICED.NrOfIced),3) AS ICINGRATIO
+
+FROM
+(
+  #Icing coaches
+  Select PLAYERS.Player, 
+  PLAYERS.season,
+  PLAYERS.Team,
+  COUNT(BASE.IcingLineup) NrOfIcing
+  FROM NHLplaybyplay.PlayersSeasonTeam AS PLAYERS
+  JOIN NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches AS BASE
+  ON BASE.IcingLineup LIKE CONCAT('%',PLAYERS.Player,'%') AND PLAYERS.season = BASE.season AND PLAYERS.TeamAbr = BASE.IcingTeam
+  #WHERE BASE.season = 20112012 AND PLAYERS.season = 20112012
+  GROUP BY PLAYERS.Player, PLAYERS.season, PLAYERS.Team
+  ORDER BY PLAYERS.Player, NrOfIcing DESC
+) AS ICING
+
+JOIN
+
+(
+  #Iced coaches
+  Select PLAYERS.Player,
+  PLAYERS.season,
+  PLAYERS.Team,
+  COUNT(BASE.IcedLineup) NrOfIced
+  FROM NHLplaybyplay.PlayersSeasonTeam AS PLAYERS
+  JOIN NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches AS BASE
+  ON BASE.IcedLineup LIKE CONCAT('%',PLAYERS.Player,'%') AND PLAYERS.season = BASE.season AND PLAYERS.TeamAbr = BASE.IcedTeam
+  GROUP BY PLAYERS.Player, PLAYERS.season, PLAYERS.Team
+  ORDER BY NrOfIced DESC
+) AS ICED
+
+ON ICING.Player = ICED.Player AND ICING.season = ICED.season AND ICING.Team = ICED.Team
+ORDER BY ICING.Player
