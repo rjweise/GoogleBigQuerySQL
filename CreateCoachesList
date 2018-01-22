@@ -2,13 +2,13 @@
 //Note there is a Phoenix Coyotes and Arizona Coyotes
 #standardSQL
 
-SELECT Coach, season, Team FROM
-  (SELECT HcoachName Coach, season, Hteam Team  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches 
+SELECT Coach, season, Team, TeamAbr FROM
+  (SELECT HcoachName Coach, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches 
 
   UNION ALL
 
-  SELECT AcoachName Coach, season, Ateam Team  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches )
-GROUP BY Coach, season, Team
+  SELECT AcoachName Coach, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches )
+GROUP BY Coach, season, Team, TeamAbr
 ORDER BY Coach, season
 
 //-------- Use the following to create a list of unique coaches
