@@ -1,0 +1,34 @@
+#standardSQL
+SELECT Player, season, Team, TeamAbr FROM
+(
+  SELECT Player, season, Team, TeamAbr FROM
+    (SELECT A1 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT A2 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT A3 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT A4 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT A5 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT A6 Player, season, Ateam Team, awayteam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H1 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H2 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H3 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H4 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H5 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    UNION ALL
+    SELECT H6 Player, season, Hteam Team, hometeam TeamAbr  FROM NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches 
+    )
+  WHERE Player <> ""
+  GROUP BY Player, season, Team, TeamAbr
+  ORDER BY Player, season
+)
+GROUP BY Player, season, Team, TeamAbr
+ORDER BY Player, season, Team
