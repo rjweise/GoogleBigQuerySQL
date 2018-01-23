@@ -6,21 +6,15 @@ Icing_Lineup	STRING	NULLABLE	Describe this field...
 Iced_Lineup	STRING	NULLABLE	Describe this field...
 
 #standardSQL
-UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
+UPDATE NHLplaybyplay.1_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents
 SET IcingTeam = hometeam WHERE homezone = "Def"
 SET IcedTeam = awayteam WHERE homezone = "Def"
-
-#standardSQL
-UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
 SET IcingTeam = awayteam WHERE homezone = "Off"
 SET IcedTeam = hometeam WHERE homezone = "Off"
+SET IcingLineup = CONCAT(a1,'/',a2,'/',a3,'/',a4,'/',a5) WHERE homezone = "Off"
+SET IcedLineup = CONCAT(h1,'/',h2,'/',h3,'/',h4,'/',h5) WHERE homezone = "Off"
+SET IcingLineup = CONCAT(h1,'/',h2,'/',h3,'/',h4,'/',h5) WHERE homezone = "Def"
+SET IcedLineup = CONCAT(a1,'/',a2,'/',a3,'/',a4,'/',a5) WHERE homezone = "Def"
 
-#standardSQL
-UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
-SET Icing_Lineup = CONCAT(a1,'/',a2,'/',a3,'/',a4,'/',a5) WHERE homezone = "Off"
-SET Iced_Lineup = CONCAT(h1,'/',h2,'/',h3,'/',h4,'/',h5) WHERE homezone = "Off"
 
-#standardSQL
-UPDATE GoogleSheetsData.NHLPBPreports_2017_uptog557
-SET Icing_Lineup = CONCAT(h1,'/',h2,'/',h3,'/',h4,'/',h5) WHERE homezone = "Def"
-SET Iced_Lineup = CONCAT(a1,'/',a2,'/',a3,'/',a4,'/',a5) WHERE homezone = "Def"
+#Note run the SET commands one at a time with the two main lines
