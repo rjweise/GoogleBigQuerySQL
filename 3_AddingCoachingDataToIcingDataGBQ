@@ -1,11 +1,11 @@
 Assuming I have two files in Google Big Query (GBQ):
-* NHLPbP20102018g707htmlreportsICING (all play by play data from 2010 until current, but only etype = ICING)
+* 1_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents (all play by play data from 2010 until current, but only etype = ICING)
 * NHLCoachesg2010020001_g2017020704 (coaches for home and away teams since 2010 to current)
 
 Let's create the SourceGameNR field in the ICING data and fill it with the right data to link to the COACH data:
 
 #standardSQL
-UPDATE NHLplaybyplay.NHLPbP20102018g707htmlreportsICING
+UPDATE NHLplaybyplay.1_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents
 SET SourceGameNR = CONCAT('game',SUBSTR(CAST(season AS STRING),1,4),"0", CAST(gcode AS STRING)) WHERE etype = "ICING"
 
 Let's join the two tables (ICING and COACH) based on the SourceGameNR
@@ -19,14 +19,14 @@ COACH.Hteam,
 COACH.Ateam,
 COACH.HteamID,
 COACH.AteamID
-FROM NHLplaybyplay.NHLPbP20102018g707htmlreportsICING AS ICING
+FROM NHLplaybyplay.1_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents AS ICING
 JOIN NHLplaybyplay.NHLCoachesg2010020001_g2017020704 AS COACH
 ON ICING.SourceGameNR = COACH.SourceGameNR
 
-We'll save this join as a new table (NHLPbP20102018g707htmlrep_JOIN_coaches) in which we can calculate some fields, using the same logic to define the iced and icing team to the iced and icing coaches (run the SET statements one by one)
+We'll save this join as a new table (3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches) in which we can calculate some fields, using the same logic to define the iced and icing team to the iced and icing coaches (run the SET statements one by one)
 
 #standardSQL
-UPDATE NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches
+UPDATE NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches
 SET IcingCoach = HcoachName WHERE homezone = "Def"
 
 SET IcedCoach = AcoachName WHERE homezone = "Def"
