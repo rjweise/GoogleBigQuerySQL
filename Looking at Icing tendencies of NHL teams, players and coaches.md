@@ -45,13 +45,20 @@ Not a significant number of records, but still. Looking at some individual occur
 
 So, if we have an icing event, and the homezone is not "Off" nor "Def" we need to look at the first record after the icing event that is a faceoff event. Isn't this fun!?! But now look at the image again: we have a stopage for icing at 12:12 in the 1st period of this game between Montreal and Buffalo, which - at the same time - is a penalty for Foligno. NHL needs to make more money, so let's have a TV timeout. Ok, we're back, with a Faceoff **at centre ice** ("FAC	MTL won Neu. Zone"). Qu'est-ce que Fuck??? Stop messing with my head, Gary B.! Sure, sure, it's an exception within the 1% of data that is an exception to normal Icing data. No need to start threatening me with moving me to Seatle! :scream: But how a re good-willing amateur analysts supposed to make sense of this?!? Namaste. :pray: I digress...
 
-## Process details
+## Data Process details
 I downloaded the Play by Play data for seasons 2010-2011 and after, with the current season up to game 707. Now that I have all the data I need, I load it into a Google Cloud Platform Storage bucket. From there I can load the individual files into Google Big Query, where the data is filtered, combined and manipulated to generate the datasets used in Tableau Public to analyse the data and create the eventual visualization:
 
 1. I first combined all Play by Play files so get a 2010-2018 file ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/1_CombiningPbPfilesGBQ))
 2. Adding columns for IcingTeam, IcedTeam, IcingLineup and IcedLineup, and calculate the values ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2_Adding_columns_and_calculate_values))
 3. Add SourceGameNR, HomeCaoch and AwayCoach columns, and then coaches to Icing data. Save resulting Table as 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/AddingCoachingDataToIcingDataGBQ))
 4. Add columns IcingCoach and IcedCoach to 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches and calculate them ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/AddingCoachingDataToIcingDataGBQ))
-5. 
+5. Create a list of all players in the Icing datasets, combined with season and team. ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/5_PlayersSeasonsTeamSQL))
+6. Join Player list with icing data for only players, and players-season-team and save to 6_Players_2010_2018g707_IcingIcedRatio and 6_Players_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/6_PlayersNrOfIcingIcedSQL))
+7. We'll do the same for Coaches, creating a lost of Coaches and one combined with season and team: 
+7_Coaches_Season_Team and 7_Coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/7_CreateCoachesList))
+8. Now create the join between the coaches list and the Icing data, resulting in 8_Coaches_2010_2018g707_IcingIcedRatio and 8_Coaches_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/8_CoachesNrOfIcingIcedSQL))
 
+Now I have a ll the data I need to work on visualization in Tableau.
+
+## Data Visualization
 
