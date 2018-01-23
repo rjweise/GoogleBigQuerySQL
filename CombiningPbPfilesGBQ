@@ -40,3 +40,9 @@ UNION ALL
 SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
       h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20162017htmlreportsF
 WHERE etype = "ICING"
+
+UNION ALL
+
+SELECT season, gcode, event, period, seconds, etype, a1, a2, a3, a4, a5, a6, 
+      h1, h2, h3, h4, h5, h6, ev_team, homezone, awayteam, hometeam, home_score, away_score, away_G, home_G, home_skaters, away_skaters FROM NHLplaybyplay.NHLPbP20172018g707htmlreports_Icing
+WHERE etype = "ICING"
