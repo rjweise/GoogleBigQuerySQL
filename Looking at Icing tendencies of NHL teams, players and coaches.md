@@ -13,6 +13,8 @@ To do this anlysis I needed data for icing events, which team committed the icin
 
 Still missing were the coaches of the teams for which I used different R-code that reads the NHL API Life Feed JSON files ([example](http://statsapi.web.nhl.com/api/v1/game/2017020019/feed/live)) and pulls both coaches and the game number, which can be linked to the data described above.
 
+The R-code used for the data extraction described above can be found [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/R-NHL-Play-By-Play-data) and [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/R-coaching-data).
+
 ### NHL Play by Play reports
 I should note that to my knowledge it is impossible to determine for every icing which team iced the puck; the icing team can not be determined when the "homezone" field contained other values then "Def" or "Off" (like "", "Neu" and "Unk"). Checking on a subset of all data I found about 1% of the data contained these values, and were excluded from the research as they could not be assigned to a team or player.
 
