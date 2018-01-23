@@ -2,15 +2,15 @@
 SELECT 
   ICING.Coach,
   ICING.NrOfIcing,
-  ICED.NrOfIced
-
+  ICED.NrOfIced,
+  ROUND(ICING.NrOfIcing/(ICING.NrOfIcing+ICED.NrOfIced),3) AS ICINGRATIO
 FROM
 (
   //Icing coaches
   Select COACHES.Coach,
   COUNT(BASE.IcingCoach) NrOfIcing
-  FROM [NHLplaybyplay.Coaches] AS COACHES
-  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  FROM [NHLplaybyplay.7_Coaches] AS COACHES
+  JOIN [NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches] AS BASE
   ON COACHES.Coach = BASE.IcingCoach
   GROUP BY COACHES.Coach
   ORDER BY NrOfIcing DESC
@@ -22,8 +22,8 @@ JOIN
   //Iced coaches
   Select COACHES.Coach,
   COUNT(BASE.IcedCoach) NrOfIced
-  FROM [NHLplaybyplay.Coaches] AS COACHES
-  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  FROM [NHLplaybyplay.7_Coaches] AS COACHES
+  JOIN [NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches] AS BASE
   ON COACHES.Coach = BASE.IcedCoach
   GROUP BY COACHES.Coach
   ORDER BY NrOfIced DESC
@@ -50,8 +50,8 @@ FROM
   COACHES.season,
   COACHES.Team,
   COUNT(BASE.IcingCoach) NrOfIcing
-  FROM [NHLplaybyplay.CoachesSeasonTeam] AS COACHES
-  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  FROM [NHLplaybyplay.7_Coaches_Season_Team] AS COACHES
+  JOIN [NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches] AS BASE
   ON COACHES.Coach = BASE.IcingCoach AND COACHES.season = BASE.season AND COACHES.TeamAbr = BASE.IcingTeam
   GROUP BY COACHES.Coach, COACHES.season, COACHES.Team
   ORDER BY COACHES.Coach, NrOfIcing DESC
@@ -65,8 +65,8 @@ JOIN
   COACHES.season,
   COACHES.Team,
   COUNT(BASE.IcedCoach) NrOfIced
-  FROM [NHLplaybyplay.CoachesSeasonTeam] AS COACHES
-  JOIN [NHLplaybyplay.NHLPbP20102018g707htmlrep_JOIN_coaches] AS BASE
+  FROM [NHLplaybyplay.7_Coaches_Season_Team] AS COACHES
+  JOIN [NHLplaybyplay.3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches] AS BASE
   ON COACHES.Coach = BASE.IcedCoach AND COACHES.season = BASE.season AND COACHES.TeamAbr = BASE.IcedTeam
   GROUP BY COACHES.Coach, COACHES.season, COACHES.Team
   ORDER BY NrOfIced DESC
