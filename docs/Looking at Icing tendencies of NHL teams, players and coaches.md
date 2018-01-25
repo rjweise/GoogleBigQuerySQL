@@ -5,7 +5,7 @@ This research is the result of a conversation with @RobVollmanNHL and looks at t
 ## Purpose
 I'm no expert by any means on hockey, but generally speaking an icing is a negative event; icing tires out the team, it allows the opposing team to change their lineup and pick their preferred match-ups, and the face-off following icing is in the defensive zone of the icing team, with a roughly 50% change of regaining possesion of the puck (and thus a 50% chance of giving the puck to your opponent in their attacking zone).
 
-![Tableau Public Screenshot](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/docs/img/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
+![Tableau Public Screenshot](http://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/docs/img/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
 [A first step in this research](https://public.tableau.com/profile/rj7974#!/vizhome/IcingPrototype2/Icingperteamandplayer) showed me what players iced the puck most, and I then aggregated that data per team. It made me wonder what the influence of the coach was on these icing tendiencies; do some prefer the temporary relief that icing can provide over the potentially negative consequences described above? Does it just come with a certain playing style coaches prefer?
 
 ## Data
