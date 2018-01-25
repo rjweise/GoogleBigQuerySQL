@@ -1,6 +1,7 @@
 ---
 layout: default
-title: NHL Icing by Teams, Players and coaches
+title: RJs page for sports visualization
+subtitle: subtitletext
 ---
 
 bla
