@@ -10,4 +10,4 @@ xccv;klzxjcvzxcv
 xcv
 czxvzxcvz
 
-[Loooooking at Icing tendencies of NHL teams, players and coaches](docs/_posts/Looking at Icing tendencies of NHL teams, players and coaches.md)
+[Loooooking at Icing tendencies of NHL teams, players and coaches](/blob/master/docs/_posts/Looking at Icing tendencies of NHL teams, players and coaches.md)
