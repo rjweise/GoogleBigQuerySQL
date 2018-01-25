@@ -5,7 +5,7 @@ This research is the result of a conversation with @RobVollmanNHL and looks at t
 ## Purpose
 I'm no expert by any means on hockey, but generally speaking an icing is a negative event; icing tires out the team, it allows the opposing team to change their lineup and pick their preferred match-ups, and the face-off following icing is in the defensive zone of the icing team, with a roughly 50% change of regaining possesion of the puck (and thus a 50% chance of giving the puck to your opponent in their attacking zone).
 
-![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
+![Tableau Public Screenshot](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
 [A first step in this research](https://public.tableau.com/profile/rj7974#!/vizhome/IcingPrototype2/Icingperteamandplayer) showed me what players iced the puck most, and I then aggregated that data per team. It made me wonder what the influence of the coach was on these icing tendiencies; do some prefer the temporary relief that icing can provide over the potentially negative consequences described above? Does it just come with a certain playing style coaches prefer?
 
 ## Data
@@ -18,11 +18,11 @@ The R-code used for the data extraction described above can be found [here](http
 ### NHL Play by Play reports
 I should note that to my knowledge it is impossible to determine for every icing which team iced the puck; the icing team can not be determined when the "homezone" field contained other values then "Def" or "Off" (like "", "Neu" and "Unk"). Checking on a subset of all data I found about 1% of the data contained these values, and were excluded from the research as they could not be assigned to a team or player.
 
-Looking at the icing events in the HTML reports from NHL ([example](http://www.nhl.com/scores/htmlreports/20162017/PL020001.HTM)) the extracted file gives me individual on-ice events with information about period, time, event type, a description, and who were on the ice: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-28-13.png "NHL Play by Play report example")
+Looking at the icing events in the HTML reports from NHL ([example](http://www.nhl.com/scores/htmlreports/20162017/PL020001.HTM)) the extracted file gives me individual on-ice events with information about period, time, event type, a description, and who were on the ice: ![NHLplaybyplay](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/2018-01-19_11-28-13.png "NHL Play by Play report example")
 
-After extracting this file through R and saving it as a csv to open in Excel, we're looking at the following for the same events: ![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-35-50.png "NHL Play by Play extracted example")
+After extracting this file through R and saving it as a csv to open in Excel, we're looking at the following for the same events: ![extractedNHLplaybyplay](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/2018-01-19_11-35-50.png "NHL Play by Play extracted example")
 ZOOM IN...
-![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_11-41-15.png)
+![zoomin](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/2018-01-19_11-41-15.png)
 
 ### The actions that need to happen now are:
 * filter out the icing events
@@ -40,10 +40,10 @@ I checked the lineups for the following faceoffs including ones in the home team
 * if the homezone is "Def" for an icing event, the home team iced the puck
 
 Leaves us with those icing events where the homezone column has a different value then "Off" or "Def"; looking at the data for the 2016-2017 season I found 10,264 icing events (etpe = "ICING"), with the Homezone values divided as follows:
-![alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_12-52-22.png)
+![homezone](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/2018-01-19_12-52-22.png)
 
 Not a significant number of records, but still. Looking at some individual occurrences the only helpful data in the report and dataset is the next line, which specifies which team won the ensuing faceoff and **in what zone that faceoff took place**. Unfortunately it seems common that it's actually not the next record. For example:
-![Alt text](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2018-01-19_13-01-36.png)
+![nextrecord](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/images/2018-01-19_13-01-36.png)
 
 So, if we have an icing event, and the homezone is not "Off" nor "Def" we need to look at the first record after the icing event that is a faceoff event. Isn't this fun!?! But now look at the image again: we have a stopage for icing at 12:12 in the 1st period of this game between Montreal and Buffalo, which - at the same time - is a penalty for Foligno. NHL needs to make more money, so let's have a TV timeout. Ok, we're back, with a Faceoff **at centre ice** ("FAC	MTL won Neu. Zone"). Qu'est-ce que Fuck??? Stop messing with my head, Gary B.! Sure, sure, it's an exception within the 1% of data that is an exception to normal Icing data. No need to start threatening me with moving me to Seatle! :scream: But how a re good-willing amateur analysts supposed to make sense of this?!? Namaste. :pray: I digress...
 
