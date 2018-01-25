@@ -13,7 +13,7 @@ To do this anlysis I needed data for icing events, which team committed the icin
 
 Still missing were the coaches of the teams for which I used different R-code that reads the NHL API Life Feed JSON files ([example](http://statsapi.web.nhl.com/api/v1/game/2017020019/feed/live)) and pulls both coaches and the game number, which can be linked to the data described above.
 
-The R-code used for the data extraction described above can be found [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/R-NHL-Play-By-Play-data) and [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/R-coaching-data).
+The R-code used for the data extraction described above can be found [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/Rcode/R-NHL-Play-By-Play-data) and [here](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/Rcode/R-coaching-data).
 
 ### NHL Play by Play reports
 I should note that to my knowledge it is impossible to determine for every icing which team iced the puck; the icing team can not be determined when the "homezone" field contained other values then "Def" or "Off" (like "", "Neu" and "Unk"). Checking on a subset of all data I found about 1% of the data contained these values, and were excluded from the research as they could not be assigned to a team or player.
@@ -50,15 +50,15 @@ So, if we have an icing event, and the homezone is not "Off" nor "Def" we need t
 ## Data Process details
 I downloaded the Play by Play data for seasons 2010-2011 and after, with the current season up to game 707. Now that I have all the data I need, I load it into a Google Cloud Platform Storage bucket. From there I can load the individual files into Google Big Query, where the data is filtered, combined and manipulated to generate the datasets used in Tableau Public to analyse the data and create the eventual visualization:
 
-1. I first combined all Play by Play files so get a 2010-2018 file ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/1_CombiningPbPfilesGBQ))
-2. Adding columns for IcingTeam, IcedTeam, IcingLineup and IcedLineup, and calculate the values ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/2_Adding_columns_and_calculate_values))
-3. Add SourceGameNR, HomeCaoch and AwayCoach columns, and then coaches to Icing data. Save resulting Table as 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/AddingCoachingDataToIcingDataGBQ))
-4. Add columns IcingCoach and IcedCoach to 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches and calculate them ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/AddingCoachingDataToIcingDataGBQ))
-5. Create a list of all players in the Icing datasets, combined with season and team. ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/5_PlayersSeasonsTeamSQL))
-6. Join Player list with icing data for only players, and players-season-team and save to 6_Players_2010_2018g707_IcingIcedRatio and 6_Players_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/6_PlayersNrOfIcingIcedSQL))
+1. I first combined all Play by Play files so get a 2010-2018 file ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/1_CombiningPbPfilesGBQ))
+2. Adding columns for IcingTeam, IcedTeam, IcingLineup and IcedLineup, and calculate the values ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/2_Adding_columns_and_calculate_values))
+3. Add SourceGameNR, HomeCaoch and AwayCoach columns, and then coaches to Icing data. Save resulting Table as 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/3_AddingCoachingDataToIcingDataGBQ))
+4. Add columns IcingCoach and IcedCoach to 3_NHL_PbP_HtmlReports_2010_2018g707_ICINGevents_JOIN_coaches and calculate them ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/3_AddingCoachingDataToIcingDataGBQ))
+5. Create a list of all players in the Icing datasets, combined with season and team. ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/5_PlayersSeasonsTeamSQL))
+6. Join Player list with icing data for only players, and players-season-team and save to 6_Players_2010_2018g707_IcingIcedRatio and 6_Players_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/6_PlayersNrOfIcingIcedSQL))
 7. We'll do the same for Coaches, creating a lost of Coaches and one combined with season and team: 
-7_Coaches_Season_Team and 7_Coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/7_CreateCoachesList))
-8. Now create the join between the coaches list and the Icing data, resulting in 8_Coaches_2010_2018g707_IcingIcedRatio and 8_Coaches_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/8_CoachesNrOfIcingIcedSQL))
+7_Coaches_Season_Team and 7_Coaches ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/7_CreateCoachesList))
+8. Now create the join between the coaches list and the Icing data, resulting in 8_Coaches_2010_2018g707_IcingIcedRatio and 8_Coaches_Season_Team_2010_2018g707_IcingIcedRatio ([SQL](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/bqsql/8_CoachesNrOfIcingIcedSQL))
 
 Now I have a ll the data I need to work on visualization in Tableau.
 
