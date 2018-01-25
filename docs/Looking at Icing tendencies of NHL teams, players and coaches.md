@@ -7,6 +7,12 @@ I'm no expert by any means on hockey, but generally speaking an icing is a negat
 
 ![Tableau Public Screenshot](https://github.com/rjweise/RESEARCH---NHL-Icing-and-Coaching-tendencies/blob/master/docs/img/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
 
+
+X
+
+
+![Some text]({{site.url}}{{site.baseurl}}/img/Screen%20Shot%202018-01-19%20at%208.02.21%20PM.png)
+
 [A first step in this research](https://public.tableau.com/profile/rj7974#!/vizhome/IcingPrototype2/Icingperteamandplayer) showed me what players iced the puck most, and I then aggregated that data per team. It made me wonder what the influence of the coach was on these icing tendiencies; do some prefer the temporary relief that icing can provide over the potentially negative consequences described above? Does it just come with a certain playing style coaches prefer?
 
 ## Data
