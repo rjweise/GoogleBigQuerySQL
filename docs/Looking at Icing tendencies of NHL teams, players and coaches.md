@@ -63,4 +63,11 @@ I downloaded the Play by Play data for seasons 2010-2011 and after, with the cur
 Now I have a ll the data I need to work on visualization in Tableau.
 
 ## Data Visualization
+For this dashboard I am using Tableau Public. A few reminders are important before creating charts with calculated fields:
+* The coaches icing data can be used to show counts for icing events at a team or league level, but needs to be divided by 2. As there is a record for every coach, an icing event will be added once to the coach of the icing team, and once to the coach of the iced team. We don't want to double count.
+* A similar situation applies to the player icings, but as there are a changing number of players on the ice for every icing event, it would be a lot harder to use for anything other than player counts than the coaching data.
+
+### Storyline
+I want to show icing event in context; counts are not particularly interesting as they depend on so many other factors. Icings per game would be more useful, and icing events per team per all icing events in a game, per game would be even more valuable. At a player level showing icing events per 60 min. would add more depth, and this is something I plan looking into at a later stage.
+
 
