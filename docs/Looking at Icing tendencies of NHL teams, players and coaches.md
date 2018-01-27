@@ -77,4 +77,4 @@ With the data being well prepared the work in Tableau Public was mostly aestetic
 ## Final result
 The story dashboard can be found here: https://public.tableau.com/views/IcinganalysisoftheNHL/IcingNHL?:embed=y&:display_count=yes&publish=yes
 I strongly encourage using the full-screen option to get the best experience. If you have any feedback or comments, please connect through Twitter: @rjweise
-
+![page1]()
