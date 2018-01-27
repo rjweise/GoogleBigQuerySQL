@@ -70,5 +70,11 @@ For this dashboard I am using Tableau Public. A few reminders are important befo
 
 ### Storyline
 I want to show icing event in context; counts are not particularly interesting as they depend on so many other factors. Icings per game would be more useful, and icing events per team per all icing events in a game, per game would be even more valuable. At a player level showing icing events per 60 min. would add more depth, and this is something I plan looking into at a later stage.
+One more thing I added is a table of season points per team, based on standings pages at https://www.hockey-reference.com/leagues/NHL_2017_standings.html, which allowes me to look at the relationship (if existing) between a team's points in a season and the icing ratios and number of icings.
 
+With the data being well prepared the work in Tableau Public was mostly aestetic, only creating a few parameters and calculated fields for an improved user experience. I used the Story feature, which makes the whole dashboard more like a err... story. I hope you enjoy it.
+
+## Final result
+The story dashboard can be found here: https://public.tableau.com/views/IcinganalysisoftheNHL/IcingNHL?:embed=y&:display_count=yes&publish=yes
+I strongly encourage using the full-screen option to get the best experience. If you have any feedback or comments, please connect through Twitter: @rjweise
 
